@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>T1</title>
+    <style type="text/css">
+        td.a {
+            text-align: center;
+            width: 120px;
+            height: 80px;
+            background-color: HotPink;
+            font-size: 15px;
+            word-wrap: break-word;
+        }
+
+        td.b {
+            text-align: left;
+            width: 200px;
+            height: 100px;
+            background-color: HotPink;
+            font-size: 15px;
+            padding: 10px 20px 15px;
+            line-height: 20px;
+            word-wrap: break-word;
+        }
+
+
+        /*			td.mm{
+				text-align:left;
+				width:200px;
+				height:90px;
+			    background-color:HotPink;
+				font-size:15px;
+				padding:10px 20px 15px;
+				line-height:20px;
+				word-wrap:break-word;
+			}
+*/
+
+        .click1:hover .a {
+            background: LightPink;
+        }
+
+        .click2:active .a {
+            background: MistyRose;
+        }
+
+        .click1:hover .b {
+            background: LightPink;
+        }
+
+        .click2:active .b {
+            background: MistyRose;
+        }
+    </style>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <table cellspacing="5" id="hello">
+        <tr id="dog">
+            <td style="text-align:center;width:120px;height:30px;background-color:HotPink;">表白对象</td>
+            <td style="text-align:center;width:200px;height:30px;background-color:HotPink;">表白内容</td>
+        </tr>
+        <tr onclick="fun1(1)" id="EleId">
+            <td class="a">图书馆花园里的某位小姐姐</td>
+            <td class="b">
+                <div id="box" onclick="fun1(0)">
+                    秋叶静美。漫步林间，拾满地落英。沿着记忆里的路径，寻一丝你的气息。静静独行，看一季落花妖娆了青葱岁月，芬芳了素指流年。把最艳红的那一片放于信笺，见证无悔的爱念。你素衣黑发，漫天飞舞的落英在你身旁翩然，美如烟云。在很久的以后，依然清晰如昨。秋雨霏霏，我轻语呢喃，只愿你能听见。
+                </div>
+            </td>
+        </tr>
+
+    </table>
+    <img src="QR.png" alt="QR code" align=left width="130px" />
+    <p>扫码添加机器人为好友<br>每晚7：30看UNNC表白墙哦<br>还有更多活动等着你</p>
+    <p>测颜值|公众号|表白&加急表白|<br>表白反骚扰等<br>回复机器人关键字<br>按提示操作</p>
+
+    <script type="text/javascript">
+        function fun1(n) {
+            if (n == 1) {
+                document.getElementById("EleId").style.visibility = "hidden";
+            }
+            else {
+                document.getElementById("EleId").style.visibility = "visible";
+            }
+        }
+        /*  function fun1(){
+              this.style.display='none';
+         }
+      */
+        function show() {
+            var box = document.getElementById("box");
+            var text = box.innerHTML;
+            var newBox = document.createElement("div");
+            var btn = document.createElement("a");
+            newBox.innerHTML = text.substring(0, 52);
+            btn.innerHTML = text.length > 52 ? "全文" : "";
+            btn.href = "###";
+            btn.onclick = function fun2(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.cancelBubble();
+            }
+            btn.onclick = function (e) {
+                if (btn.innerHTML == "全文") {
+                    btn.innerHTML = "收起";
+                    newBox.innerHTML = text;
+                }
+                else {
+                    btn.innerHTML = "全文";
+                    newBox.innerHTML = text.substring(0, 52);
+                }
+                e.stopPropagation();
+            }
+            box.innerHTML = "";
+            box.appendChild(newBox);
+            box.appendChild(btn);
+        }
+        window.onload = function () {
+            show();
+        }
+
+        var str = "请将信息填写完整";
+        var i = 0;
+        function gantan(i) {
+            var n = 0;
+            var m = "";
+            for (; n <= i; n++) {
+                m += "!";
+            }
+            return m;
+        }
+
+        function outInfo() {
+            var msg = document.getElementById("p1").value;
+            var ms = document.getElementById("p2").value;
+            var mss = ms + "<br>";
+            if (msg == "" || ms == "") {
+                document.getElementById("p").innerHTML = str + gantan(i);
+                i++;
+            }
+            else {
+                var theTable = document.getElementById("hello");
+                var rowCount = theTable.rows.length;
+                var row = theTable.insertRow(rowCount);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.setAttribute("class", "a");
+                cell2.setAttribute("class", "b");
+                cell1.innerHTML = msg;
+                cell2.innerHTML = mss + '<div style ="text-align:right;font-size:12px;color:grey;padding:5px 20px;">' + getDate() + '</style></div>';
+                row.onclick = function () { this.style.display = 'none'; }
+                row.setAttribute("class", "click1 click2");
+                document.getElementById("p").innerHTML = "已提交!";
+                document.getElementById("p1").value = "";
+                document.getElementById("p2").value = "";
+            }
+        }
+
+        function getDate() {
+            var time = Date();
+            return time;
+        }
+    </script>
+
+    <h2 style="margin-left:500px;">发起表白:</h2>
+    <div style="text-align:center"><input type="text" placeholder="表白对象..." id="p1" value=""
+            style="border-radius:5px;height:30px" /><br>
+        <input type="text" placeholder="表白内容..." id="p2" value="" style=" border-radius:5px;height:30px;" /><br>
+        <button onclick="outInfo()" style="margin-left:100px;border-radius:5px;">提交</button></div>
+    <p id="p" style="color:red;"></p>
+
+</body>
+
+</html>
